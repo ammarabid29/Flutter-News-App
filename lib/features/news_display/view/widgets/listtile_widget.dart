@@ -19,7 +19,7 @@ class ListtileWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10), // Rounded corners
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2), // Shadow color
+            color: Colors.grey.shade200, // Shadow color
             blurRadius: 4, // Shadow blur radius
             offset: Offset(0, 2), // Shadow offset
           ),

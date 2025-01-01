@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:868485232264:android:6fc101e1b814cc6430113d",
+        "mobilesdk_app_id": "1:868485232264:android:ed1a37b733466ae430113d",
         "android_client_info": {
-          "package_name": "com.example.flutter_chat_app"
+          "package_name": "com.example.flutter_news_app"
         }
       },
       "oauth_client": [],
