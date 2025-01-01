@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/features/home/models/all_news_channels_headlines_models.dart';
+import 'package:flutter_news_app/features/news_display/models/all_news_channels_headlines_models.dart';
 
 class ListtileWidget extends StatelessWidget {
   final Sources sources;

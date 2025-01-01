@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/features/home/models/all_news_channels_headlines_models.dart';
-import 'package:flutter_news_app/features/home/models/news_channels_headlines_model.dart';
-import 'package:flutter_news_app/features/home/view/widgets/card_widget.dart';
-import 'package:flutter_news_app/features/home/view/widgets/listtile_widget.dart';
-import 'package:flutter_news_app/features/home/view_model/news_view_model.dart';
+import 'package:flutter_news_app/features/news_display/models/all_news_channels_headlines_models.dart';
+import 'package:flutter_news_app/features/news_display/models/news_channels_headlines_model.dart';
+import 'package:flutter_news_app/features/news_display/view/widgets/card_widget.dart';
+import 'package:flutter_news_app/features/news_display/view/widgets/listtile_widget.dart';
+import 'package:flutter_news_app/features/news_display/view_model/news_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
