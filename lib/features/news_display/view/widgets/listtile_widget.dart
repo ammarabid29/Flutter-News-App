@@ -13,15 +13,15 @@ class ListtileWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          color: Colors.grey.shade300, // Border color
-          width: 1, // Border width
+          color: Colors.grey.shade300, 
+          width: 1, 
         ),
-        borderRadius: BorderRadius.circular(10), // Rounded corners
+        borderRadius: BorderRadius.circular(10), 
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade200, // Shadow color
-            blurRadius: 4, // Shadow blur radius
-            offset: Offset(0, 2), // Shadow offset
+            color: Colors.grey.shade200,
+            blurRadius: 4, 
+            offset: Offset(0, 2), 
           ),
         ],
       ),
