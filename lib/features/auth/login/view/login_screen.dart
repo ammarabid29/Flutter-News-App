@@ -108,6 +108,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 30),
+                    InkWell(
+                      onTap: () {
+                        return _loginViewModel
+                            .navigateToLoginWithPhoneScreen(context);
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: Center(
+                          child: Text("Login with Phone Number"),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
