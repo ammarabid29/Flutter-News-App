@@ -70,4 +70,5 @@ class PostViewModel {
       Utils().toastSuccessMessage("Invalid Credentials");
     }
   }
+
 }
