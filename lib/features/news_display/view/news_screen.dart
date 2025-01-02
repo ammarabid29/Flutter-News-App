@@ -9,14 +9,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 enum FiltersList { bbcNews, aryNews, independent, reuters, cnn, alJazeera }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class NewsScreen extends StatefulWidget {
+  const NewsScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NewsScreen> createState() => _NewsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NewsScreenState extends State<NewsScreen> {
   NewsViewModel newsViewModel = NewsViewModel();
 
   FiltersList? selectedFilter;

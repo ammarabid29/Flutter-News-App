@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/core/utils/utils.dart';
+import 'package:flutter_news_app/features/auth/signup/view/signup_screen.dart';
+import 'package:flutter_news_app/features/news_display/view/news_screen.dart';
 
-class SignupViewModel {
+class LoginViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   bool loading = false;
 
   String? validateEmail(String? value) {
@@ -25,7 +26,7 @@ class SignupViewModel {
     return null;
   }
 
-  void handleSignup({
+  void handleLogin({
     required BuildContext context,
     required GlobalKey<FormState> formKey,
     required TextEditingController emailController,
@@ -33,33 +34,43 @@ class SignupViewModel {
     required Function(bool) setLoading,
   }) {
     setLoading(true);
-
     FocusScope.of(context).unfocus();
 
     if (formKey.currentState!.validate()) {
       _auth
-          .createUserWithEmailAndPassword(
-        email: emailController.text.toString(),
-        password: passwordController.text.toString(),
-      )
+          .signInWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passwordController.text.toString())
           .then(
         (value) {
-          setLoading(false);
           emailController.clear();
           passwordController.clear();
+          Utils().toastSuccessMessage("Login Successfully");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (ctx) => NewsScreen(),
+            ),
+          );
+          setLoading(false);
         },
       ).onError(
         (error, stackTrace) {
+          Utils().toastErrorMessage(error.toString());
           setLoading(false);
-          Utils().toastMessage(error.toString());
         },
       );
     } else {
       setLoading(false);
+      Utils().toastErrorMessage("Invalid Credentials");
     }
   }
 
-  void navigateToLoginScreen(BuildContext context) {
-    Navigator.of(context).pop();
+  void navigateToSignupScreen(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SignupScreen(),
+      ),
+    );
   }
 }

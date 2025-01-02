@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/core/utils/round_button.dart';
-import 'package:flutter_news_app/features/auth/view/widgets/text_form_field_widget.dart';
-import 'package:flutter_news_app/features/auth/view_model/signup_view_model.dart';
+import 'package:flutter_news_app/features/auth/widgets/text_form_field_widget.dart';
+import 'package:flutter_news_app/features/auth/login/view_model/login_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   bool isLoading = false;
 
-  final SignupViewModel _signupViewModel = SignupViewModel();
+  final LoginViewModel _loginViewModel = LoginViewModel();
 
   @override
   void dispose() {
@@ -45,13 +44,18 @@ class _SignupScreenState extends State<SignupScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    Image.asset(
+                      "assets/images/splash_pic.jpg",
+                      fit: BoxFit.cover,
+                      height: height * .3,
+                    ),
                     TextFormFieldWidget(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       hint: "Email",
                       icon: Icon(Icons.email_outlined),
                       validator: (value) {
-                        return _signupViewModel.validateEmail(value);
+                        return _loginViewModel.validateEmail(value);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -62,20 +66,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       hint: "Password",
                       icon: Icon(Icons.password_outlined),
                       validator: (value) {
-                        return _signupViewModel.validatePassword(value);
+                        return _loginViewModel.validatePassword(value);
                       },
                     ),
                     const SizedBox(height: 30),
                     RoundButton(
                       isLoading: isLoading,
-                      title: "Signup",
+                      title: "Login",
                       onTap: () {
-                        return _signupViewModel.handleSignup(
+                        return _loginViewModel.handleLogin(
                           context: context,
                           formKey: _formKey,
                           emailController: emailController,
                           passwordController: passwordController,
-                          setLoading: (bool loading) {
+                          setLoading: (loading) {
                             setState(() {
                               isLoading = loading;
                             });
@@ -87,14 +91,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Already have an account?"),
+                        Text("Don't have an account?"),
                         TextButton(
                           onPressed: () {
-                            return _signupViewModel
-                                .navigateToLoginScreen(context);
+                            return _loginViewModel
+                                .navigateToSignupScreen(context);
                           },
                           child: Text(
-                            "Login",
+                            "Sign up",
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -115,9 +119,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       centerTitle: true,
       title: Text(
-        "Signup",
+        "Login",
         style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700),
       ),
     );
