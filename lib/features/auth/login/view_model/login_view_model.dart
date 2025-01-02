@@ -5,6 +5,7 @@ import 'package:flutter_news_app/features/auth/login/view/login_with_phone_numbe
 import 'package:flutter_news_app/features/auth/login/view/verify_code_screen.dart';
 import 'package:flutter_news_app/features/auth/signup/view/signup_screen.dart';
 import 'package:flutter_news_app/features/news_display/view/news_screen.dart';
+import 'package:flutter_news_app/features/posts/view/posts_screen.dart';
 
 class LoginViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -48,10 +49,10 @@ class LoginViewModel {
           emailController.clear();
           passwordController.clear();
           Utils().toastSuccessMessage("Login Successfully");
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (ctx) => NewsScreen(),
+              builder: (ctx) => PostsScreen(),
             ),
           );
           setLoading(false);

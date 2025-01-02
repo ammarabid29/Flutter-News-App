@@ -19,7 +19,7 @@ class NewsViewModel {
   void handleLogout(BuildContext context) {
     _auth.signOut().then(
       (value) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LoginScreen(),
@@ -33,4 +33,6 @@ class NewsViewModel {
       },
     );
   }
+
+
 }

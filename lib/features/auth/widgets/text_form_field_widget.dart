@@ -7,6 +7,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool obscure;
   final String? Function(String?) validator;
   final TextInputType keyboardType;
+  final int? maxLines;
   const TextFormFieldWidget({
     super.key,
     required this.controller,
@@ -15,11 +16,13 @@ class TextFormFieldWidget extends StatelessWidget {
     this.obscure = false,
     required this.validator,
     required this.keyboardType,
+    this.maxLines = 1,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       keyboardType: keyboardType,
       obscureText: obscure,
       controller: controller,

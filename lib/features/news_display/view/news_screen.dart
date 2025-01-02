@@ -23,53 +23,13 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width * 1;
-    final height = MediaQuery.sizeOf(context).height * 1;
     return Scaffold(
-      appBar: _buildAppBar(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: height,
-                  width: width,
-                  child: FutureBuilder<NewsChannelsHeadlinesModel>(
-                    future: _newsViewModel
-                        .fetchNewsChannelsHeadlinesApi(channelName),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: SpinKitCircle(
-                            size: 40,
-                            color: Colors.blue,
-                          ),
-                        );
-                      } else {
-                        return ListView.builder(
-                          itemCount: snapshot.data!.articles!.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (ctx, index) {
-                            return CardWidget(
-                              article: snapshot.data!.articles![index],
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-        ],
-      ),
+      appBar: _buildAppBar(),
+      body: _buildBody(),
     );
   }
 
-  _buildAppBar(BuildContext context) {
+  _buildAppBar() {
     return AppBar(
       centerTitle: true,
       title: Text(
@@ -119,6 +79,51 @@ class _NewsScreenState extends State<NewsScreen> {
           icon: Icon(Icons.logout),
         ),
         SizedBox(width: 10),
+      ],
+    );
+  }
+
+  _buildBody() {
+    final width = MediaQuery.sizeOf(context).width * 1;
+    final height = MediaQuery.sizeOf(context).height * 1;
+
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: [
+              SizedBox(
+                height: height,
+                width: width,
+                child: FutureBuilder<NewsChannelsHeadlinesModel>(
+                  future:
+                      _newsViewModel.fetchNewsChannelsHeadlinesApi(channelName),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: SpinKitCircle(
+                          size: 40,
+                          color: Colors.blue,
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.articles!.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (ctx, index) {
+                          return CardWidget(
+                            article: snapshot.data!.articles![index],
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
       ],
     );
   }
