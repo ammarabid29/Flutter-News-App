@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fit: BoxFit.cover,
                       height: height * .3,
                     ),
+                    const SizedBox(height: 20),
                     TextFormFieldWidget(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
