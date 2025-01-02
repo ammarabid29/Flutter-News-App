@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/features/auth/view/signup_screen.dart';
 
-class LoginViewModel {
+class SignupViewModel {
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return "Enter email";
@@ -20,7 +19,7 @@ class LoginViewModel {
     return null;
   }
 
-  void handleLogin({
+  void handleSignup({
     required BuildContext context,
     required GlobalKey<FormState> formKey,
     required TextEditingController emailController,
@@ -33,7 +32,7 @@ class LoginViewModel {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Login successful"),
+          content: Text("Signup successful"),
         ),
       );
     } else {
@@ -46,11 +45,7 @@ class LoginViewModel {
     }
   }
 
-  void navigateToSignupScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SignupScreen(),
-      ),
-    );
+  void navigateToLoginScreen(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }
