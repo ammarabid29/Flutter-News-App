@@ -1,14 +1,31 @@
+// Root-level build.gradle (android/build.gradle)
+buildscript {
+    repositories {
+        google() // Make sure google() is included for Firebase and Android dependencies
+        mavenCentral() // Include mavenCentral for other dependencies
+    }
+    dependencies {
+        // Gradle Plugin for Android
+        classpath 'com.android.tools.build:gradle:7.4.1'
+
+        // Firebase Services
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
 allprojects {
     repositories {
-        google()
-        mavenCentral()
+        google() // This is needed for Firebase dependencies
+        mavenCentral() // This is for general dependencies
     }
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }

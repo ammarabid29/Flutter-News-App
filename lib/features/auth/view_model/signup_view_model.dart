@@ -1,6 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app/core/utils/utils.dart';
 
 class SignupViewModel {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  bool loading = false;
+
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return "Enter email";
@@ -24,24 +30,32 @@ class SignupViewModel {
     required GlobalKey<FormState> formKey,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    required Function(bool) setLoading,
   }) {
+    setLoading(true);
+
     FocusScope.of(context).unfocus();
+
     if (formKey.currentState!.validate()) {
-      emailController.clear();
-      passwordController.clear();
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Signup successful"),
-        ),
+      _auth
+          .createUserWithEmailAndPassword(
+        email: emailController.text.toString(),
+        password: passwordController.text.toString(),
+      )
+          .then(
+        (value) {
+          setLoading(false);
+          emailController.clear();
+          passwordController.clear();
+        },
+      ).onError(
+        (error, stackTrace) {
+          setLoading(false);
+          Utils().toastMessage(error.toString());
+        },
       );
     } else {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Invalid credentials"),
-        ),
-      );
+      setLoading(false);
     }
   }
 

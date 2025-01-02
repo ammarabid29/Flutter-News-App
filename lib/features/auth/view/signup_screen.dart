@@ -13,8 +13,11 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  bool isLoading = false;
 
   final SignupViewModel _signupViewModel = SignupViewModel();
 
@@ -64,6 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     const SizedBox(height: 30),
                     RoundButton(
+                      isLoading: isLoading,
                       title: "Signup",
                       onTap: () {
                         return _signupViewModel.handleSignup(
@@ -71,6 +75,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           formKey: _formKey,
                           emailController: emailController,
                           passwordController: passwordController,
+                          setLoading: (bool loading) {
+                            setState(() {
+                              isLoading = loading;
+                            });
+                          },
                         );
                       },
                     ),
