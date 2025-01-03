@@ -4,8 +4,8 @@ import 'package:flutter_news_app/core/utils/utils.dart';
 import 'package:flutter_news_app/features/auth/login/view/login_with_phone_number.dart';
 import 'package:flutter_news_app/features/auth/login/view/verify_code_screen.dart';
 import 'package:flutter_news_app/features/auth/signup/view/signup_screen.dart';
+import 'package:flutter_news_app/features/firestore/view/firestore_list_screen.dart';
 import 'package:flutter_news_app/features/news_display/view/news_screen.dart';
-import 'package:flutter_news_app/features/posts/view/posts_screen.dart';
 
 class LoginViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -52,7 +52,7 @@ class LoginViewModel {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (ctx) => PostsScreen(),
+              builder: (ctx) => FireStoreListScreen(),
             ),
           );
           setLoading(false);
