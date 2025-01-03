@@ -62,9 +62,15 @@ class _FireStoreListScreenState extends State<FireStoreListScreen> {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
+                String userId = snapshot.data!.docs[index]["id"].toString();
+
                 return ListTile(
+                  onTap: () {
+                    // return _firestoreViewModel.updateFireStoreData(id: userId);
+                    return _firestoreViewModel.deleteFireStoreData(id: userId);
+                  },
                   title: Text(snapshot.data!.docs[index]["title"].toString()),
-                  subtitle: Text(snapshot.data!.docs[index]["id"].toString()),
+                  subtitle: Text(userId),
                 );
               },
             );

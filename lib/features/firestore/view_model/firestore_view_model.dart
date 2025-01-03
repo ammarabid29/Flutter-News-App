@@ -8,7 +8,7 @@ import 'package:flutter_news_app/features/firestore/view/add_firestore_data.dart
 class FirestoreViewModel {
   final _auth = FirebaseAuth.instance;
 
-  final fireStore = FirebaseFirestore.instance.collection("users");
+  final fireStoreCollection = FirebaseFirestore.instance.collection("users");
 
   void handleLogout(BuildContext context) {
     _auth.signOut().then(
@@ -55,7 +55,7 @@ class FirestoreViewModel {
     if (formKey.currentState!.validate()) {
       String id = DateTime.now().microsecondsSinceEpoch.toString();
 
-      fireStore.doc(id).set({
+      fireStoreCollection.doc(id).set({
         "title": fireStoreController.text.toString(),
         "id": id,
       }).then((value) {
@@ -71,5 +71,23 @@ class FirestoreViewModel {
       setLoading(false);
       Utils().toastErrorMessage("Invalid Credentials");
     }
+  }
+
+  void updateFireStoreData({required String id}) {
+    fireStoreCollection.doc(id).update(
+      {"title": "user updated"},
+    ).then((value) {
+      Utils().toastSuccessMessage("User Updated");
+    }).onError((error, stackTree) {
+      Utils().toastErrorMessage("Error in updating user");
+    });
+  }
+
+  void deleteFireStoreData({required String id}) {
+    fireStoreCollection.doc(id).delete().then((value) {
+      Utils().toastSuccessMessage("User Deleted");
+    }).onError((error, stackTree) {
+      Utils().toastErrorMessage("Error in deleting user");
+    });
   }
 }
