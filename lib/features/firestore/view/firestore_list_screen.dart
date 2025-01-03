@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/features/firestore/view_model/firestore_view_model.dart';
+import 'package:flutter_news_app/features/news_display/view/widgets/card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FireStoreListScreen extends StatefulWidget {
@@ -12,28 +14,15 @@ class FireStoreListScreen extends StatefulWidget {
 class _FireStoreListScreenState extends State<FireStoreListScreen> {
   final FirestoreViewModel _firestoreViewModel = FirestoreViewModel();
 
+  final fireStoreSnapshot =
+      FirebaseFirestore.instance.collection("users").snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text("Ammar"),
-          );
-        },
-      ),
+      body: _buildBody(),
       floatingActionButton: _buildFloatingActionButton(),
-    );
-  }
-
-  _buildFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: () {
-        return _firestoreViewModel.navigateToAddFireStoreDataScreen(context);
-      },
-      child: Icon(Icons.add),
     );
   }
 
@@ -53,6 +42,42 @@ class _FireStoreListScreenState extends State<FireStoreListScreen> {
         ),
         SizedBox(width: 10),
       ],
+    );
+  }
+
+  _buildBody() {
+    return StreamBuilder<QuerySnapshot>(
+        stream: fireStoreSnapshot,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: spinKit2,
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Something went wrong"),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(snapshot.data!.docs[index]["title"].toString()),
+                  subtitle: Text(snapshot.data!.docs[index]["id"].toString()),
+                );
+              },
+            );
+          }
+        });
+  }
+
+  _buildFloatingActionButton() {
+    return FloatingActionButton(
+      onPressed: () {
+        return _firestoreViewModel.navigateToAddFireStoreDataScreen(context);
+      },
+      child: Icon(Icons.add),
     );
   }
 }
